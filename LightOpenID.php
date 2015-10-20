@@ -289,7 +289,7 @@ class LightOpenID
                     'header' => 'Accept: application/xrds+xml, */*',
                     'ignore_errors' => true,
                 ), 'ssl' => array(
-                    'CN_match' => parse_url($url, PHP_URL_HOST),
+                    'peer_name' => parse_url($url, PHP_URL_HOST),
                 ),
             );
             $url = $url . ($params ? '?' . $params : '');
@@ -302,7 +302,7 @@ class LightOpenID
                     'content' => $params,
                     'ignore_errors' => true,
                 ), 'ssl' => array(
-                    'CN_match' => parse_url($url, PHP_URL_HOST),
+                    'peer_name' => parse_url($url, PHP_URL_HOST),
                 ),
             );
             break;
@@ -318,7 +318,7 @@ class LightOpenID
                         'header' => 'Accept: application/xrds+xml, */*',
                         'ignore_errors' => true,
                     ), 'ssl' => array(
-                        'CN_match' => parse_url($url, PHP_URL_HOST),
+                        'peer_name' => parse_url($url, PHP_URL_HOST),
                     ),
                 )
             );
@@ -355,7 +355,6 @@ class LightOpenID
 
         $context = stream_context_create ($opts);
         $data = file_get_contents($url, false, $context);
-
         # This is a hack for providers who don't support HEAD requests.
         # It just creates the headers array for the last request in $this->headers.
         if(isset($http_response_header)) {
